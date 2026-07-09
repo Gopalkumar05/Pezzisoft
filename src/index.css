@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Urbanist:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Colors - Your Custom Colors */
+  --color-primary: #046BD2;
+  --color-primary-dark: #045CB4;
+  --color-primary-light: #4A90D9;
+  --color-secondary: #1E293B;
+  --color-secondary-light: #334155;
+  --color-accent: #F59E0B;
+  --color-success: #10B981;
+  --color-background-light: #F0F5FA;
+  --color-background-white: #FFFFFF;
+
+  /* Font Families */
+  --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-family-heading: 'Urbanist', 'Inter', sans-serif;
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-sans text-secondary-light antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family-heading);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-secondary);
+  }
+}
+
+@layer components {
+  /* .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  } */
+
+   /* .container-custom {
+    @apply max-w-full mx-auto px-4 sm:px-6 lg:px-8;
+  } */
+
+  .container-custom{
+    @apply max-w-screen-2xl mx-auto px-8 lg:px-16;
+}
+
+  .section-padding {
+    @apply py-16 md:py-20 lg:py-24;
+  }
+
+  .gradient-hero {
+    background: linear-gradient(135deg, #046BD2 0%, #045CB4 50%, #1E293B 100%);
+  }
+
+  .gradient-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0F5FA 100%);
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white font-semibold py-3 px-8 rounded-lg 
+           transition-all duration-300 hover:bg-primary-dark hover:shadow-lg
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary border-2 border-primary font-semibold py-3 px-8 rounded-lg
+           transition-all duration-300 hover:bg-primary hover:text-white hover:shadow-lg
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-white font-semibold py-3 px-8 rounded-lg
+           transition-all duration-300 hover:bg-accent/90 hover:shadow-lg
+           focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+}
