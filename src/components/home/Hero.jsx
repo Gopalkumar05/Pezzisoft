@@ -1,12 +1,9 @@
-
-
-
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaStar, FaCheck, FaArrowRight } from 'react-icons/fa';
-import Particles from 'react-tsparticles';
-import { loadSlim } from 'tsparticles-slim';
+import { FaCheck, FaArrowRight } from 'react-icons/fa';
+import { tsParticles } from '@tsparticles/engine';
+import { loadSlim } from '@tsparticles/slim';
 
 const Hero = () => {
   const [industry, setIndustry] = useState(0);
@@ -17,97 +14,119 @@ const Hero = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Particles initialization
-  const particlesInit = useCallback(async (engine) => {
-    await loadSlim(engine);
-  }, []);
+  // Particles initialization using core engine
+  useEffect(() => {
+    const initParticles = async () => {
+      try {
+        await loadSlim(tsParticles);
+        await tsParticles.load({
+          id: "tsparticles",
+          options: {
+            particles: {
+              number: {
+                value: 80,
+                density: {
+                  enable: true,
+                  value_area: 800
+                }
+              },
+              color: {
+                value: "#ffffff"
+              },
+              shape: {
+                type: "circle",
+                stroke: {
+                  width: 0,
+                  color: "#000000"
+                }
+              },
+              opacity: {
+                value: 0.5,
+                random: false,
+                anim: {
+                  enable: false
+                }
+              },
+              size: {
+                value: 2,
+                random: true,
+                anim: {
+                  enable: false
+                }
+              },
+              links: {
+                enable: true,
+                distance: 150,
+                color: "#ffffff",
+                opacity: 0.4,
+                width: 1
+              },
+              move: {
+                enable: true,
+                speed: 3,
+                direction: "none",
+                random: false,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                  enable: false
+                }
+              }
+            },
+            interactivity: {
+              detect_on: "window",
+              events: {
+                onhover: {
+                  enable: true,
+                  mode: "repulse"
+                },
+                onclick: {
+                  enable: true,
+                  mode: "push"
+                },
+                resize: true
+              },
+              modes: {
+                repulse: {
+                  distance: 100,
+                  duration: 0.4
+                },
+                push: {
+                  particles_nb: 4
+                }
+              }
+            },
+            retina_detect: true
+          }
+        });
+      } catch (error) {
+        console.error("Particles error:", error);
+      }
+    };
 
-  const particlesConfig = {
-    particles: {
-      number: {
-        value: 80,
-        density: {
-          enable: true,
-          value_area: 800
+    initParticles();
+
+    // Cleanup - Fixed
+    return () => {
+      try {
+        // Check if tsParticles has the container and destroy it
+        if (tsParticles && tsParticles.load) {
+          // The container will be cleaned up automatically
+          // Just refresh the particles
+          tsParticles.refresh();
         }
-      },
-      color: {
-        value: "#ffffff"
-      },
-      shape: {
-        type: "circle",
-        stroke: {
-          width: 0,
-          color: "#000000"
-        }
-      },
-      opacity: {
-        value: 0.5,
-        random: false,
-        anim: {
-          enable: false
-        }
-      },
-      size: {
-        value: 2,
-        random: true,
-        anim: {
-          enable: false
-        }
-      },
-      line_linked: {
-        enable: true,
-        distance: 150,
-        color: "#ffffff",
-        opacity: 0.4,
-        width: 1
-      },
-      move: {
-        enable: true,
-        speed: 3,
-        direction: "none",
-        random: false,
-        straight: false,
-        out_mode: "out",
-        bounce: false,
-        attract: {
-          enable: false
-        }
+      } catch (error) {
+        console.error("Cleanup error:", error);
       }
-    },
-    interactivity: {
-      detect_on: "window",
-      events: {
-        onhover: {
-          enable: true,
-          mode: "repulse"
-        },
-        onclick: {
-          enable: true,
-          mode: "push"
-        },
-        resize: true
-      },
-      modes: {
-        repulse: {
-          distance: 100,
-          duration: 0.4
-        },
-        push: {
-          particles_nb: 4
-        }
-      }
-    },
-    retina_detect: true
-  };
+    };
+  }, []);
 
   return (
     <section className="gradient-hero min-h-screen flex items-center relative overflow-hidden">
       {/* Particles Effect - Spider Web */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={particlesConfig}
+      <div 
+        id="tsparticles" 
         className="absolute inset-0 w-full h-full"
         style={{ pointerEvents: 'none' }}
       />
