@@ -1,7 +1,7 @@
 // import React from 'react';
 // import { motion } from 'framer-motion';
 // import { PROBLEMS } from '../../utils/constants';
-// import hrIssueImage from '../../assets/images/hr-issue.png';
+// import hrIssueImage from '../../assets/images/HR-issue.png';
 
 // const Problems = () => {
 //   return (
